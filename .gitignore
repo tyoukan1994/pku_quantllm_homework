@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+.vntrader/
+vnpy_ctp_source/
+choice_api_sdk/
+.env
+.env.*
+!.env.example
+secrets/
+data/private/
+factor/results/**/*.csv
+tmp/
+*.docx
+*.pdf
+*.db
+.DS_Store

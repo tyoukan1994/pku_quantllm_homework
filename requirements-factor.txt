@@ -1,0 +1,7 @@
+vnpy[alpha]==4.4.0
+rqdatac==3.7.1
+vnpy_rqdata==3.4.7.8
+lightgbm==4.7.0
+scikit-learn==1.9.1
+torch==2.14.0
+pyarrow==25.0.1
