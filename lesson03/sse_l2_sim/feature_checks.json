@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-09",
+  "unit_tests": 26,
+  "browser_checks": [
+    "millisecond advance and invalid interval",
+    "UI market instruction FIVE_CANCEL",
+    "UI market instruction FIVE_LIMIT",
+    "UI market instruction SAME_BEST",
+    "UI market instruction OPPOSITE_BEST",
+    "STAR market sell 201 shares",
+    "market protection required in UI",
+    "auto replay exact end, tape and volume update",
+    "pause stable, change speed and resume",
+    "reject end before current time",
+    "automatic playback across hour boundary",
+    "order submission pauses automatic playback",
+    "reset cancels pending playback timer",
+    "no JavaScript page errors"
+  ],
+  "page_errors": []
+}

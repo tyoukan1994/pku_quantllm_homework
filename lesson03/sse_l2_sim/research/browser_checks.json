@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "preselected 30s result matches calculated data",
+    "factor and horizon update metrics with changed-price coverage",
+    "validation and heldout split toggle",
+    "heatmap switches factor and horizon",
+    "stock case changes historical trajectory",
+    "all chart paths have finite values",
+    "figure and CSV download routes",
+    "source files remain outside download allowlist",
+    "research controls do not mutate replay account",
+    "mobile layout contains horizontal overflow",
+    "no JavaScript runtime errors",
+    "research entry available on trading page"
+  ],
+  "page_errors": []
+}

@@ -9,3 +9,5 @@
 - [维护日志](log.md)
 - 原始来源：[课堂照片整理](../raw/lecture-2026-09-18.md)
 - 方法来源：[Karpathy 的 LLM Wiki idea file](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+
+- 第三节实践课：[Level-2 历史回放与模拟交易](../lesson03/sse_l2_sim/README.md)；[单日日内因子研究与可视化](../lesson03/sse_l2_sim/research/README.md)。原型边界、时间留出和成本口径见项目说明。

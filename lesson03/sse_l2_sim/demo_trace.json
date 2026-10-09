@@ -1,0 +1,1797 @@
+[
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 998152,
+        "available_cash": 998152,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 100,
+        "equity": 1000000,
+        "orders": [
+          {
+            "id": 1,
+            "side": "B",
+            "price": 18.48,
+            "quantity": 100,
+            "remaining": 0,
+            "created_at": "09:30:00.000",
+            "status": "FILLED",
+            "queue_ahead_quantity": 0
+          }
+        ],
+        "fills": [
+          {
+            "order_id": 1,
+            "time": "09:30:00.000",
+            "price": 18.48,
+            "quantity": 100,
+            "side": "B",
+            "model": "zero_impact_book_sweep",
+            "historical_seq": null,
+            "amount": 1848,
+            "fees": 0
+          }
+        ],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 400,
+    "body": {
+      "error": "可卖持仓不足；当日买入股票不能当日卖出（T+1）"
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 1000,
+        "sellable_shares": 1000,
+        "bought_today": 0,
+        "equity": 1018480,
+        "orders": [],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1001847,
+        "available_cash": 1001847,
+        "frozen_cash": 0,
+        "settled_shares": 900,
+        "sellable_shares": 900,
+        "bought_today": 0,
+        "equity": 1018479,
+        "orders": [
+          {
+            "id": 1,
+            "side": "S",
+            "price": 18.47,
+            "quantity": 100,
+            "remaining": 0,
+            "created_at": "09:30:00.000",
+            "status": "FILLED",
+            "queue_ahead_quantity": 0
+          }
+        ],
+        "fills": [
+          {
+            "order_id": 1,
+            "time": "09:30:00.000",
+            "price": 18.47,
+            "quantity": 100,
+            "side": "S",
+            "model": "zero_impact_book_sweep",
+            "historical_seq": null,
+            "amount": 1847,
+            "fees": 0
+          }
+        ],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 998153,
+        "frozen_cash": 1847,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [
+          {
+            "id": 1,
+            "side": "B",
+            "price": 18.47,
+            "quantity": 100,
+            "remaining": 100,
+            "created_at": "09:30:00.000",
+            "status": "OPEN",
+            "queue_ahead_quantity": 34600
+          }
+        ],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [
+          {
+            "id": 1,
+            "side": "B",
+            "price": 18.47,
+            "quantity": 100,
+            "remaining": 100,
+            "created_at": "09:30:00.000",
+            "status": "CANCELLED",
+            "queue_ahead_quantity": 34600
+          }
+        ],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 688981,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 3758,
+        "events_total": 220157,
+        "preclose": 122.41,
+        "last_price": 122.32,
+        "bids": [
+          {
+            "price": 122.32,
+            "quantity": 100
+          },
+          {
+            "price": 122.3,
+            "quantity": 400
+          },
+          {
+            "price": 122.28,
+            "quantity": 500
+          },
+          {
+            "price": 122.26,
+            "quantity": 200
+          },
+          {
+            "price": 122.22,
+            "quantity": 942
+          },
+          {
+            "price": 122.2,
+            "quantity": 1200
+          },
+          {
+            "price": 122.16,
+            "quantity": 200
+          },
+          {
+            "price": 122.13,
+            "quantity": 200
+          },
+          {
+            "price": 122.12,
+            "quantity": 2500
+          },
+          {
+            "price": 122.11,
+            "quantity": 200
+          }
+        ],
+        "asks": [
+          {
+            "price": 122.4,
+            "quantity": 2428
+          },
+          {
+            "price": 122.41,
+            "quantity": 110592
+          },
+          {
+            "price": 122.47,
+            "quantity": 1370
+          },
+          {
+            "price": 122.5,
+            "quantity": 200
+          },
+          {
+            "price": 122.55,
+            "quantity": 2960
+          },
+          {
+            "price": 122.66,
+            "quantity": 500
+          },
+          {
+            "price": 122.68,
+            "quantity": 300
+          },
+          {
+            "price": 122.69,
+            "quantity": 200
+          },
+          {
+            "price": 122.74,
+            "quantity": 300
+          },
+          {
+            "price": 122.79,
+            "quantity": 200
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 3558,
+          "cancels": 20,
+          "trades": 178,
+          "missing_active_trade": 2
+        },
+        "excluded_after_hours_trades": 32,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 400,
+    "body": {
+      "error": "科创板限价委托最少200股；不足200股的可卖余额须一次卖出"
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 688981,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 3758,
+        "events_total": 220157,
+        "preclose": 122.41,
+        "last_price": 122.32,
+        "bids": [
+          {
+            "price": 122.32,
+            "quantity": 100
+          },
+          {
+            "price": 122.3,
+            "quantity": 400
+          },
+          {
+            "price": 122.28,
+            "quantity": 500
+          },
+          {
+            "price": 122.26,
+            "quantity": 200
+          },
+          {
+            "price": 122.22,
+            "quantity": 942
+          },
+          {
+            "price": 122.2,
+            "quantity": 1200
+          },
+          {
+            "price": 122.16,
+            "quantity": 200
+          },
+          {
+            "price": 122.13,
+            "quantity": 200
+          },
+          {
+            "price": 122.12,
+            "quantity": 2500
+          },
+          {
+            "price": 122.11,
+            "quantity": 200
+          }
+        ],
+        "asks": [
+          {
+            "price": 122.4,
+            "quantity": 2428
+          },
+          {
+            "price": 122.41,
+            "quantity": 110592
+          },
+          {
+            "price": 122.47,
+            "quantity": 1370
+          },
+          {
+            "price": 122.5,
+            "quantity": 200
+          },
+          {
+            "price": 122.55,
+            "quantity": 2960
+          },
+          {
+            "price": 122.66,
+            "quantity": 500
+          },
+          {
+            "price": 122.68,
+            "quantity": 300
+          },
+          {
+            "price": 122.69,
+            "quantity": 200
+          },
+          {
+            "price": 122.74,
+            "quantity": 300
+          },
+          {
+            "price": 122.79,
+            "quantity": 200
+          }
+        ],
+        "cash": 975397.6,
+        "available_cash": 975397.6,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 201,
+        "equity": 999983.92,
+        "orders": [
+          {
+            "id": 1,
+            "side": "B",
+            "price": 122.4,
+            "quantity": 201,
+            "remaining": 0,
+            "created_at": "09:30:00.000",
+            "status": "FILLED",
+            "queue_ahead_quantity": 0
+          }
+        ],
+        "fills": [
+          {
+            "order_id": 1,
+            "time": "09:30:00.000",
+            "price": 122.4,
+            "quantity": 201,
+            "side": "B",
+            "model": "zero_impact_book_sweep",
+            "historical_seq": null,
+            "amount": 24602.4,
+            "fees": 0
+          }
+        ],
+        "audit": {
+          "status_events": 2,
+          "adds": 3558,
+          "cancels": 20,
+          "trades": 178,
+          "missing_active_trade": 2
+        },
+        "excluded_after_hours_trades": 32,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  },
+  {
+    "status": 200,
+    "body": {
+      "state": {
+        "symbol": 601688,
+        "date": "20260923",
+        "time": "09:30:00.000",
+        "time_stamp": 93000000,
+        "phase": "连续竞价",
+        "events_processed": 2640,
+        "events_total": 104251,
+        "preclose": 18.47,
+        "last_price": 18.48,
+        "bids": [
+          {
+            "price": 18.47,
+            "quantity": 34600
+          },
+          {
+            "price": 18.46,
+            "quantity": 11900
+          },
+          {
+            "price": 18.45,
+            "quantity": 13800
+          },
+          {
+            "price": 18.44,
+            "quantity": 1200
+          },
+          {
+            "price": 18.43,
+            "quantity": 300
+          },
+          {
+            "price": 18.42,
+            "quantity": 8100
+          },
+          {
+            "price": 18.41,
+            "quantity": 22800
+          },
+          {
+            "price": 18.4,
+            "quantity": 67300
+          },
+          {
+            "price": 18.39,
+            "quantity": 26700
+          },
+          {
+            "price": 18.38,
+            "quantity": 44400
+          }
+        ],
+        "asks": [
+          {
+            "price": 18.48,
+            "quantity": 11700
+          },
+          {
+            "price": 18.5,
+            "quantity": 7000
+          },
+          {
+            "price": 18.51,
+            "quantity": 3500
+          },
+          {
+            "price": 18.52,
+            "quantity": 2800
+          },
+          {
+            "price": 18.53,
+            "quantity": 42900
+          },
+          {
+            "price": 18.54,
+            "quantity": 15800
+          },
+          {
+            "price": 18.55,
+            "quantity": 52700
+          },
+          {
+            "price": 18.56,
+            "quantity": 5600
+          },
+          {
+            "price": 18.57,
+            "quantity": 14900
+          },
+          {
+            "price": 18.58,
+            "quantity": 54300
+          }
+        ],
+        "cash": 1000000,
+        "available_cash": 1000000,
+        "frozen_cash": 0,
+        "settled_shares": 0,
+        "sellable_shares": 0,
+        "bought_today": 0,
+        "equity": 1000000,
+        "orders": [],
+        "fills": [],
+        "audit": {
+          "status_events": 2,
+          "adds": 2469,
+          "cancels": 33,
+          "trades": 136
+        },
+        "excluded_after_hours_trades": 25,
+        "model": "零市场冲击假设；连续竞价限价委托；单笔在途；不含费用；零延迟"
+      },
+      "symbols": [
+        600028,
+        600030,
+        600031,
+        600036,
+        600050,
+        600089,
+        600111,
+        600150,
+        600183,
+        600276,
+        600309,
+        600406,
+        600519,
+        600760,
+        600809,
+        600887,
+        600900,
+        600930,
+        601012,
+        601088,
+        601127,
+        601166,
+        601211,
+        601288,
+        601318,
+        601328,
+        601398,
+        601600,
+        601601,
+        601628,
+        601658,
+        601668,
+        601688,
+        601728,
+        601857,
+        601888,
+        601899,
+        601919,
+        601988,
+        603019,
+        603259,
+        603501,
+        603986,
+        603993,
+        688008,
+        688012,
+        688041,
+        688111,
+        688256,
+        688981
+      ]
+    }
+  }
+]

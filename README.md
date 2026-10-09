@@ -1,8 +1,23 @@
 # 当代量化交易系统的原理与实现｜作业工作区
 
-本仓库为第二讲课程作业。课程讨论区是 [aslan9/pku_quantllm](https://github.com/aslan9/pku_quantllm)，不是本项目的代码仓库。
+本仓库汇集第二讲和第三节实践课作业。课程讨论区是 [aslan9/pku_quantllm](https://github.com/aslan9/pku_quantllm)，不是本项目的代码仓库。
 
-## 项目内容
+## 第三节实践课：Level-2 回放与日内因子研究
+
+基于老师提供的2026-09-23沪市50只股票逐笔委托、逐笔成交与快照数据，完成以下两项实践：
+
+| 项目 | 内容与入口 |
+|---|---|
+| 交易系统 | [订单簿重建与历史模拟交易](lesson03/sse_l2_sim/README.md)：限价单、四类市价指令、T+1与资金持仓约束、自动回放和盘口／成交展示 |
+| 因子挖掘 | [日内微观因子研究与可视化](lesson03/sse_l2_sim/research/README.md)：12个量价／盘口因子、1秒至5分钟预测目标、按时间留出的检验、图表与离线交互报告 |
+
+![日内因子研究概览](lesson03/sse_l2_sim/research/overview.png)
+
+结果限于单日数据：一档盘口量差在价格发生变化的1秒样本上方向准确率为70.22%，30秒组合为58.63%；不代表所有时点的准确率，也不代表扣费后可以盈利。完整口径、成本讨论和原型边界在各项目README中说明。
+
+原始课堂数据从[课程 Release](https://github.com/aslan9/pku_quantllm/releases/tag/data-sse50-20260923)下载，仓库包含源码、完整汇总结果、图表和验证材料；约49MB逐秒样本由脚本在本机生成。课程提交沿用[交易系统评论](https://github.com/aslan9/pku_quantllm/issues/6#issuecomment-6079589571)和[因子研究评论](https://github.com/aslan9/pku_quantllm/issues/6#issuecomment-6080524317)。
+
+## 第二讲项目内容
 
 - `raw/`：课堂照片信息的人工转录与外部来源记录。
 - `wiki/`：持续维护的作业知识库；从 [索引](wiki/index.md) 开始阅读。

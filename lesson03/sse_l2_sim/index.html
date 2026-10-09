@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Level-2 历史模拟交易</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#173149;background:#f0f4f7}*{box-sizing:border-box}[hidden]{display:none!important}body{max-width:1320px;margin:0 auto;padding:30px 26px}h1{font-size:27px;margin:0 0 10px}h2{font-size:17px;margin:0 0 18px}p{line-height:1.7}.sub,small{color:#60778b}.notice{background:#e5edf4;border:1px solid #ccdbe7;border-radius:9px;padding:12px 16px;font-size:13px;margin:18px 0;line-height:1.7}.panel{background:white;border:1px solid #dce5ec;border-radius:12px;padding:22px;margin:16px 0}.row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}label{font-size:12px;display:flex;flex-direction:column;gap:7px}input,select,button{font:inherit;border:1px solid #c6d4df;border-radius:6px;padding:9px 12px;background:white;min-height:39px}input{width:145px}button{cursor:pointer;color:#173149}button.primary{background:#183d5b;color:white;border-color:#183d5b}button:disabled{opacity:.5;cursor:default}.grid{display:grid;grid-template-columns:1fr 1.1fr;gap:20px}.metrics{display:flex;flex-wrap:wrap;gap:24px;margin-top:20px}.metric span{font-size:12px;color:#60778b;display:block;margin-bottom:6px}.metric b{font-size:20px;font-variant-numeric:tabular-nums}table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}th,td{padding:8px;text-align:right;border-bottom:1px solid #edf1f5;white-space:nowrap}th{font-weight:500;color:#60778b}th:first-child,td:first-child{text-align:left}.buy{color:#bc3b45}.sell{color:#198169}.error{color:#ad2032;min-height:22px;font-size:14px;margin:12px 0}.status{font-family:monospace;font-size:25px}.scroll{max-height:340px;overflow:auto}.foot{font-size:12px;color:#60778b;margin:16px 0;line-height:1.7}.auto{padding-top:18px;margin-top:18px;border-top:1px solid #e4ebf1}.badge{font-size:13px;color:#198169;align-self:center}.order-panels{display:grid;gap:14px;margin-top:18px}.order-panel{border:1px solid #d7e2eb;border-radius:10px;padding:16px;background:#fbfcfd;transition:border-color .15s,box-shadow .15s}.order-panel.active{border-color:#547e9e;box-shadow:0 0 0 1px #547e9e;background:#fff}.order-panel-title{border:0;background:none;padding:0;min-height:0;font-size:16px;font-weight:600;text-align:left}.order-panel .foot{margin:10px 0 14px}.direction{display:flex;gap:6px}.direction button{min-width:70px}.direction button[aria-pressed="true"][data-side="B"]{background:#fcebee;border-color:#bc3b45;color:#a62e38}.direction button[aria-pressed="true"][data-side="S"]{background:#e7f4ef;border-color:#198169;color:#146c58}.field-title{font-size:12px;display:block;margin-bottom:7px}.instruction-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.instruction-option{text-align:left;line-height:1.5;padding:10px 12px;min-height:74px}.instruction-option b{font-size:13px;display:block;font-weight:500}.instruction-option small{font-size:11px;display:block;margin-top:4px}.instruction-option[aria-pressed="true"]{background:#eaf1f7;border-color:#547e9e;color:#183d5b;box-shadow:inset 0 0 0 1px #547e9e}.order-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.order-actions input{width:135px}button:focus-visible{outline:2px solid #547e9e;outline-offset:3px}@media(max-width:420px){.instruction-options{grid-template-columns:1fr}}.note-cell{text-align:left;white-space:normal;min-width:180px}@media(max-width:900px){.grid{grid-template-columns:1fr}body{padding:20px 14px}}
+</style></head>
+<body>
+<h1>Level-2 历史模拟交易</h1><div class="sub">2026 年 9 月 23 日 · 上交所 50 只股票 · 本地回放原型　<a href="/research" target="_blank" rel="noopener" style="color:#1f6b89">查看日内因子研究与可视化 →</a></div>
+<div class="notice">支持连续竞价限价单和四类上交所市价指令。成交采用零市场冲击假设，暂不含费用和通信延迟。集合竞价仅回放；14:57 起结束未完成模拟委托。按普通已上市主板／科创板股票规则校验。</div>
+<section class="panel">
+<div class="row"><label>证券代码<select id="symbol"></select></label><label>初始资金（元）<input id="cash" type="number" value="1000000" min="0"></label><label>期初可卖持仓（股）<input id="shares" type="number" value="0" min="0" step="1"></label><button class="primary" onclick="reset()">重置并从 09:30 开始</button></div>
+<div class="row" style="margin-top:22px"><b class="status" id="time">—</b><span id="phase"></span><button onclick="advance(1)">＋1 秒</button><button onclick="advance(10)">＋10 秒</button><button onclick="advance(60)">＋1 分钟</button><label>手动回放至<input id="target" type="time" step="1" value="10:00:00"></label><button onclick="seek()">推进至指定时间</button></div>
+<div class="row auto"><label>自动回放终点<input id="autoEnd" type="time" step="1" value="15:00:00"></label><label>播放速度<select id="speed"><option value="1">1 倍</option><option value="5">5 倍</option><option value="10">10 倍</option><option value="30">30 倍</option><option value="60">60 倍</option></select></label><button class="primary" id="autoStart" onclick="startAuto()">开始／继续自动回放</button><button id="autoPause" onclick="pauseAuto()" disabled>暂停回放</button><span class="badge" id="autoStatus" role="status">已暂停</span></div>
+<div class="foot">从当前时刻自动推进，抵达终点自动停止。可随时暂停或调整速度；下单、撤单、手动跳转和重置会先暂停播放。</div>
+<div class="metrics" id="market"></div>
+</section>
+<div class="error" id="error" role="alert"></div>
+<div class="grid">
+<section class="panel" style="margin:0"><h2>重建买卖十档</h2><table><thead><tr><th>档位</th><th>买价</th><th>买量</th><th>卖价</th><th>卖量</th></tr></thead><tbody id="book"></tbody></table><div class="foot">盘口由逐笔事件重建。快照仅用于离线核验。</div></section>
+<section class="panel" style="margin:0" id="orderEntry"><h2>模拟委托</h2>
+<input id="orderType" type="hidden" value="LIMIT"><input id="side" type="hidden" value="B"><input id="marketMode" type="hidden" value="FIVE_CANCEL">
+<div class="row"><div><span class="field-title">方向</span><div class="direction" role="group" aria-label="委托方向"><button type="button" data-side="B" aria-pressed="true" onclick="setSide('B')">买入</button><button type="button" data-side="S" aria-pressed="false" onclick="setSide('S')">卖出</button></div></div><label>数量（股）<input id="qty" type="number" value="100" min="1" step="1"></label></div>
+<div class="order-panels">
+<section class="order-panel active" id="limitPanel" aria-labelledby="limitPanelTitle" onclick="selectOrderType('LIMIT')" onfocusin="selectOrderType('LIMIT')">
+<button type="button" class="order-panel-title" id="limitPanelTitle" aria-pressed="true" onclick="selectOrderType('LIMIT')">限价单</button>
+<div class="foot">按指定价格或更优价格成交，剩余量留在原限价排队。</div>
+<div class="order-actions"><label>限价（元）<input id="price" type="number" min="0.01" step="0.01"></label><button type="button" onclick="fillQuote('LIMIT')">填入对手价</button><button class="primary" id="submitLimit" onclick="order('LIMIT')">提交限价委托</button></div>
+</section>
+<section class="order-panel" id="marketPanel" aria-labelledby="marketPanelTitle" onclick="selectOrderType('MARKET')" onfocusin="selectOrderType('MARKET')">
+<button type="button" class="order-panel-title" id="marketPanelTitle" aria-pressed="false" onclick="selectOrderType('MARKET')">市价单</button>
+<div class="foot">单击选择市价指令，再设置可接受的保护限价。</div>
+<div class="instruction-options" role="group" aria-label="市价指令">
+<button type="button" class="instruction-option" data-mode="FIVE_CANCEL" aria-pressed="true" onclick="selectMarketMode('FIVE_CANCEL')"><b>最优五档 · 剩余撤销</b><small>五档成交，未成交部分撤销</small></button>
+<button type="button" class="instruction-option" data-mode="FIVE_LIMIT" aria-pressed="false" onclick="selectMarketMode('FIVE_LIMIT')"><b>最优五档 · 剩余转限价</b><small>五档成交，剩余转为限价排队</small></button>
+<button type="button" class="instruction-option" data-mode="SAME_BEST" aria-pressed="false" onclick="selectMarketMode('SAME_BEST')"><b>本方最优价格</b><small>按提交时的本方最优价申报</small></button>
+<button type="button" class="instruction-option" data-mode="OPPOSITE_BEST" aria-pressed="false" onclick="selectMarketMode('OPPOSITE_BEST')"><b>对手方最优价格</b><small>按提交时的对手方最优价申报</small></button>
+</div>
+<div class="foot" id="orderHint"></div>
+<div class="order-actions"><label><span id="protectionTitle">保护限价：最高买价（元）</span><input id="protection" type="number" min="0.01" step="0.01"></label><button type="button" onclick="fillQuote('MARKET')">填入对手价</button><button class="primary" id="submitMarket" onclick="order('MARKET')">提交市价委托</button></div>
+</section>
+</div>
+<div class="row" style="margin-top:14px"><button onclick="action('/api/cancel',{})">撤销未完成委托</button></div>
+<div class="foot">每只股票同时一笔在途委托。市价单实际成交价和剩余转限价均不得越过保护限价。五档指五个价位。</div>
+<h2 style="margin-top:24px">模拟账户</h2><div class="metrics" id="account"></div><p class="foot">当日买入不能当日卖出。期初持仓由你设置；资产按最新成交价估值，不代表策略收益。</p></section>
+</div>
+<section class="panel"><h2>市场逐笔成交 · 最近 20 笔</h2><div class="scroll"><table><thead><tr><th>时间</th><th>价格</th><th>数量</th><th>主动方向</th><th>业务序号</th></tr></thead><tbody id="marketTrades"></tbody></table></div></section>
+<section class="panel"><h2>模拟委托记录</h2><div class="scroll"><table><thead><tr><th>编号</th><th>时间</th><th>方向／类型</th><th>当前申报价</th><th>保护限价</th><th>数量</th><th>未成交</th><th>前方挂单量</th><th>状态</th><th>处理说明</th></tr></thead><tbody id="orders"></tbody></table></div></section>
+<section class="panel"><h2>模拟成交记录</h2><div class="scroll"><table><thead><tr><th>委托</th><th>时间</th><th>方向</th><th>价格</th><th>数量</th><th>金额</th><th>成交模型</th></tr></thead><tbody id="fills"></tbody></table></div></section>
+<script>
+let state, busy=0, requestChain=Promise.resolve(), running=false, autoTimer=null, generation=0, lastWall=0, endMs=0;
+const el=id=>document.getElementById(id), num=x=>Number(x).toLocaleString('zh-CN'), money=x=>x==null?'—':Number(x).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const statuses={OPEN:'排队中',FILLED:'全部成交',CANCELLED:'已撤销',EXPIRED_AT_AUCTION_BOUNDARY:'集合竞价开始，原型结束委托'};
+const hints={FIVE_CANCEL:'在对手方最优五个价位和保护限价范围内依次成交，剩余量自动撤销。',FIVE_LIMIT:'先在对手方最优五档成交，剩余量按本单最后成交价转限价；未成交时取本方最优价，无本方报价则撤销。',SAME_BEST:'取提交时的本方最优价作为申报价；无本方报价则自动撤销。',OPPOSITE_BEST:'取提交时的对手方最优价作为申报价；剩余量留在该价格排队，无对手方报价则自动撤销。'};
+function metrics(id,items){el(id).innerHTML=items.map(([name,value])=>`<div class="metric"><span>${name}</span><b>${value}</b></div>`).join('')}
+function controls(){document.querySelectorAll('button').forEach(b=>{if(b.id!=='autoPause')b.disabled=busy>0});el('autoStart').disabled=running||busy>0;el('autoPause').disabled=!running;el('autoEnd').disabled=running;}
+function render(data){
+ state=data.state;
+ if(!el('symbol').options.length)el('symbol').innerHTML=data.symbols.map(s=>`<option value="${s}">${s}</option>`).join('');
+ el('symbol').value=state.symbol;el('time').textContent=state.time;el('phase').textContent=state.phase;
+ metrics('market',[['最新成交价',money(state.last_price)],['前收盘价',money(state.preclose)],['累计成交量',num(state.market_volume)],['已处理事件',num(state.events_processed)]]);
+ metrics('account',[['可用资金',money(state.available_cash)],['冻结资金',money(state.frozen_cash)],['可卖持仓',num(state.sellable_shares)],['当日买入',num(state.bought_today)],['账户总资产',money(state.equity)]]);
+ el('book').innerHTML=Array.from({length:10},(_,i)=>{let b=state.bids[i],a=state.asks[i];return `<tr><td>${i+1}</td><td class="buy">${b?money(b.price):'—'}</td><td>${b?num(b.quantity):'—'}</td><td class="sell">${a?money(a.price):'—'}</td><td>${a?num(a.quantity):'—'}</td></tr>`}).join('');
+ el('marketTrades').innerHTML=(state.market_trades||[]).map(t=>`<tr><td>${t.time}</td><td>${money(t.price)}</td><td>${num(t.quantity)}</td><td class="${t.side===66?'buy':t.side===83?'sell':''}">${t.side===66?'主动买':t.side===83?'主动卖':'未给出／集合竞价'}</td><td>${t.seq}</td></tr>`).join('');
+ el('orders').innerHTML=state.orders.slice().reverse().map(o=>`<tr><td>${o.id}</td><td>${o.created_at}</td><td>${o.side==='B'?'买':'卖'} · ${o.order_type_name||'限价'}</td><td>${money(o.price)}</td><td>${money(o.protection_price)}</td><td>${num(o.quantity)}</td><td>${num(o.remaining)}</td><td>${num(o.queue_ahead_quantity)}</td><td>${o.status==='CANCELLED'&&o.remaining<o.quantity?'部分成交，剩余撤销':statuses[o.status]||o.status}</td><td class="note-cell">${o.reason||'—'}</td></tr>`).join('');
+ el('fills').innerHTML=state.fills.slice().reverse().map(f=>`<tr><td>${f.order_id}</td><td>${f.time}</td><td>${f.side==='B'?'买':'卖'}</td><td>${money(f.price)}</td><td>${num(f.quantity)}</td><td>${money(f.amount)}</td><td>${f.model==='zero_impact_fifo'?'排队成交假设':'按重建盘口成交假设'}</td></tr>`).join('');
+ if(!el('price').value){let q=el('side').value==='B'?state.asks[0]:state.bids[0];if(q)el('price').value=q.price;}
+ if(!el('protection').value){let q=el('side').value==='B'?state.asks[0]:state.bids[0];if(q)el('protection').value=q.price;}
+}
+function request(path,payload){
+ const run=requestChain.then(async()=>{busy++;controls();try{
+  let r=await fetch(path,{method:payload===undefined?'GET':'POST',headers:{'Content-Type':'application/json'},body:payload===undefined?undefined:JSON.stringify(payload)});
+  let d=await r.json();if(!r.ok)throw Error(d.error||'请求失败');render(d);return d;
+ }finally{busy--;controls()}});
+ requestChain=run.catch(()=>{});return run;
+}
+function pauseAuto(message='已暂停'){running=false;generation++;clearTimeout(autoTimer);autoTimer=null;el('autoStatus').textContent=message;controls();}
+async function action(path,payload){pauseAuto();el('error').textContent='';try{return await request(path,payload)}catch(e){el('error').textContent=e.message;return null}}
+function toMs(stamp){let s=String(stamp).padStart(9,'0');return ((Number(s.slice(0,2))*60+Number(s.slice(2,4)))*60+Number(s.slice(4,6)))*1000+Number(s.slice(6));}
+function toStamp(ms){let h=Math.floor(ms/3600000);ms%=3600000;let m=Math.floor(ms/60000);ms%=60000;let s=Math.floor(ms/1000);return h*10000000+m*100000+s*1000+ms%1000;}
+function timeInput(id){let text=el(id).value;if(!text)throw Error('请填写回放时间');let a=text.split(':').map(Number);return ((a[0]*60+a[1])*60+(a[2]||0))*1000;}
+function startAuto(){
+ if(!state||busy||running)return;
+ try{endMs=timeInput('autoEnd');if(endMs>toMs(150000000))throw Error('自动回放终点不得晚于15:00');if(endMs<=toMs(state.time_stamp))throw Error('自动回放终点必须晚于当前时刻');}
+ catch(e){el('error').textContent=e.message;return;}
+ el('error').textContent='';running=true;const token=++generation;lastWall=performance.now();controls();el('autoStatus').textContent=`播放中 · ${el('speed').value} 倍`;autoTimer=setTimeout(()=>autoTick(token),250);
+}
+async function autoTick(token){
+ if(!running||token!==generation)return;
+ const now=performance.now(),elapsed=now-lastWall;lastWall=now;
+ const delta=Math.min(3600000,Math.max(1,Math.round(elapsed*Number(el('speed').value))));
+ const target=Math.min(endMs,toMs(state.time_stamp)+delta);
+ try{await request('/api/advance',{target:toStamp(target)})}catch(e){if(token===generation){pauseAuto('播放失败，已暂停');el('error').textContent=e.message;}return;}
+ if(!running||token!==generation)return;
+ if(toMs(state.time_stamp)>=endMs){pauseAuto('已到达回放终点');return;}
+ el('autoStatus').textContent=`播放中 · ${el('speed').value} 倍`;autoTimer=setTimeout(()=>autoTick(token),250);
+}
+function selectOrderType(type){el('orderType').value=type;updateForm();}
+function selectMarketMode(mode){el('marketMode').value=mode;selectOrderType('MARKET');}
+function setSide(side){el('side').value=side;updateForm(true);}
+function updateForm(refill=false){
+ const market=el('orderType').value==='MARKET',side=el('side').value;
+ el('limitPanel').classList.toggle('active',!market);el('marketPanel').classList.toggle('active',market);
+ el('limitPanelTitle').setAttribute('aria-pressed',String(!market));el('marketPanelTitle').setAttribute('aria-pressed',String(market));
+ document.querySelectorAll('[data-side]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.side===side)));
+ document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===el('marketMode').value)));
+ el('protectionTitle').textContent=side==='B'?'保护限价：最高买价（元）':'保护限价：最低卖价（元）';
+ el('orderHint').textContent=hints[el('marketMode').value];
+ if(state&&refill){let quote=side==='B'?state.asks[0]:state.bids[0];if(quote){el('protection').value=quote.price;el('price').value=quote.price;}}
+}
+async function reset(){el('price').value='';el('protection').value='';el('qty').value=String(el('symbol').value).startsWith('688')?200:100;await action('/api/reset',{symbol:Number(el('symbol').value),cash:Number(el('cash').value),initial_shares:Number(el('shares').value)});updateForm();}
+function advance(seconds){action('/api/advance',{seconds})}
+function seek(){try{action('/api/advance',{target:toStamp(timeInput('target'))})}catch(e){el('error').textContent=e.message}}
+function fillQuote(type){selectOrderType(type);let q=el('side').value==='B'?state.asks[0]:state.bids[0];if(q)el(type==='MARKET'?'protection':'price').value=q.price;}
+function order(type){selectOrderType(type);const market=type==='MARKET';action('/api/order',{side:el('side').value,price:market?null:el('price').value,quantity:Number(el('qty').value),order_type:market?el('marketMode').value:'LIMIT',protection_price:market?el('protection').value:null})}
+// Never silently catch up through a long period with the page hidden.
+ document.addEventListener('visibilitychange',()=>{if(document.hidden&&running)pauseAuto('页面隐藏，已暂停')});
+ updateForm();request('/api/state').catch(e=>el('error').textContent=e.message);
+</script>
+</body></html>

@@ -1,0 +1,53 @@
+{
+  "independent_checks": [
+    "601688 34800: current quote exactly matches original engine",
+    "601688 46830: current quote exactly matches original engine",
+    "601688 50700: current quote exactly matches original engine",
+    "601688 53820: current quote exactly matches original engine",
+    "601688 1s forward label exactly matches original engine",
+    "601688 30s forward label exactly matches original engine",
+    "601688 300s forward label exactly matches original engine",
+    "688981 34800: current quote exactly matches original engine",
+    "688981 46830: current quote exactly matches original engine",
+    "688981 50700: current quote exactly matches original engine",
+    "688981 53820: current quote exactly matches original engine",
+    "688981 1s forward label exactly matches original engine",
+    "688981 30s forward label exactly matches original engine",
+    "688981 300s forward label exactly matches original engine",
+    "601398 34800: current quote exactly matches original engine",
+    "601398 46830: current quote exactly matches original engine",
+    "601398 50700: current quote exactly matches original engine",
+    "601398 53820: current quote exactly matches original engine",
+    "601398 1s forward label exactly matches original engine",
+    "601398 30s forward label exactly matches original engine",
+    "601398 300s forward label exactly matches original engine"
+  ],
+  "unit_checks": 7,
+  "market_adjusted_diagnostic": [
+    {
+      "factor": "obi1",
+      "horizon": 1,
+      "original_raw_ic": 0.2259952358191283,
+      "market_adjusted_raw_ic": 0.22335522143727943
+    },
+    {
+      "factor": "trade5",
+      "horizon": 1,
+      "original_raw_ic": 0.04114604073512337,
+      "market_adjusted_raw_ic": 0.03549350861597658
+    },
+    {
+      "factor": "obi1",
+      "horizon": 30,
+      "original_raw_ic": 0.21833361999332127,
+      "market_adjusted_raw_ic": 0.2195090053649581
+    },
+    {
+      "factor": "trade5",
+      "horizon": 30,
+      "original_raw_ic": 0.10372532720187287,
+      "market_adjusted_raw_ic": 0.09256585177618003
+    }
+  ],
+  "note": "扣除同秒50只股票等权未来价变，只是事后目标诊断，不作为因子；仍是同一日尾段。"
+}

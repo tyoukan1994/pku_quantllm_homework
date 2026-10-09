@@ -1,0 +1,20 @@
+{
+  "data_directory": "${SSE_L2_DATA_DIR}",
+  "inputs": [
+    {
+      "name": "exe_20260923.parquet",
+      "bytes": 78166158,
+      "sha256": "ec1774c557600549992f1c349705fdacdddeabdb58750a8fba4d2198f9207222"
+    },
+    {
+      "name": "ord_20260923.parquet",
+      "bytes": 125584504,
+      "sha256": "5e3fa7f96edc130262661bf379a5c367952327d36b0936e720cba907e78bd61b"
+    },
+    {
+      "name": "snp_20260923.parquet",
+      "bytes": 26806291,
+      "sha256": "ac69d2f1810a24a15cb4c90183a6d3ea7ee31eccbcd98c58ed1f7f7f7c34aa87"
+    }
+  ]
+}

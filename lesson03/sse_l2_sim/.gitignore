@@ -1,0 +1,6 @@
+.venv/
+.cache/
+__pycache__/
+*.pyc
+data/
+research/factor_samples.parquet
