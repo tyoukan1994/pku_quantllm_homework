@@ -1,0 +1,18 @@
+{
+  "start": "2024-01-02",
+  "end": "2025-12-31",
+  "initial_cash": 1000000,
+  "commission_rate": 0.0003,
+  "minimum_commission": 5,
+  "slippage_bps": 5,
+  "participation_rate": 0.01,
+  "amount_multiplier": 1,
+  "min_history": 60,
+  "annual_days": 252,
+  "risk_free_rate": 0,
+  "accounting": "research",
+  "strict_rules": false,
+  "exclude_st": true,
+  "max_weight": 1,
+  "benchmark": ""
+}

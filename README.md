@@ -1,6 +1,14 @@
 # 当代量化交易系统的原理与实现｜作业工作区
 
-本仓库汇集第二讲和第三节实践课作业。课程讨论区是 [aslan9/pku_quantllm](https://github.com/aslan9/pku_quantllm)，不是本项目的代码仓库。
+本仓库汇集第二讲、第三节实践课和第四讲回测作业。课程讨论区是 [aslan9/pku_quantllm](https://github.com/aslan9/pku_quantllm)，不是本项目的代码仓库。
+
+## 第四讲：沪深 A 股日频回测系统
+
+[源码与运行说明](lesson04/ashare_backtest/README.md) · [自定义策略模板](lesson04/ashare_backtest/strategies/custom_template.py) · [测试与验收](lesson04/ashare_backtest/验收说明.md)
+
+基于课程提供的七个 Feather 日频矩阵，提供可编辑 Python 策略的 Streamlit 工作台和模块化回测引擎。实现收盘信号次日开盘执行、T+1、板块申报数量、历史涨跌停与费用规则、资金和上日成交额参与约束，以及净值、回撤、持仓、成交和拒单导出。包含动量、均线、等权示例，33 项测试通过，并完成真实课程数据集成运行。
+
+当前默认采用复权权益份额研究近似；严格账户和逐日状态检查需补充公司行为、ST/停复牌及精确涨跌停数据，缺少必要数据时停止。示例用于验证系统流程，不构成策略样本外有效性结论。原始行情从[课程 Release](https://github.com/aslan9/pku_quantllm/releases/tag/data-backtest-20261016)下载，不重复上传。
 
 ## 第三节实践课：Level-2 回放与日内因子研究
 
@@ -81,3 +89,4 @@ PYTHONPATH=factor .venv/bin/python factor/run_alpha_ml.py
 ```bash
 .venv/bin/python factor/run_alpha_ml_holdout_2025.py
 ```
+

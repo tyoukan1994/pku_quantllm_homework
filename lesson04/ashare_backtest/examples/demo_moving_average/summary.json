@@ -1,0 +1,134 @@
+{
+  "metrics": {
+    "total_return": 0.1871572488433073,
+    "annual_return": 0.028378057965795733,
+    "annual_volatility": 0.21542978142128377,
+    "sharpe": 0.23739018354356622,
+    "max_drawdown": -0.4173903499492242,
+    "calmar": 0.06798925267258321,
+    "total_fees": 63972.88,
+    "fills": 402,
+    "rejected_orders": 276,
+    "partial_orders": 338,
+    "two_way_turnover": 72.4311227504615,
+    "average_exposure": 0.7335892645076819,
+    "final_equity": 1187157.2488433074,
+    "final_cash": 58705.040000000234,
+    "stale_valuation_days": 0,
+    "start": "2020-06-01",
+    "end": "2026-10-16",
+    "observations": 1546,
+    "return_periods": 1545
+  },
+  "config": {
+    "start": "2020-06-01",
+    "end": "2026-10-16",
+    "initial_cash": 1000000.0,
+    "commission_rate": 0.0003,
+    "minimum_commission": 5.0,
+    "slippage_bps": 5.0,
+    "participation_rate": 0.01,
+    "amount_multiplier": 1.0,
+    "annual_days": 252,
+    "risk_free_rate": 0.0,
+    "min_history": 60,
+    "max_weight": 1.0,
+    "accounting": "research",
+    "strict_rules": false,
+    "exclude_st": true,
+    "dividend_tax_rate": 0.0,
+    "factor_tolerance": 0.0001,
+    "stale_warning_days": 20,
+    "benchmark": ""
+  },
+  "data": {
+    "source": "LOCAL_FEATHERS_DIR",
+    "start": "2020-01-02",
+    "end": "2026-10-16",
+    "dates": 1643,
+    "symbols": 4,
+    "state_records": 0,
+    "action_records": 0,
+    "instrument_records": 0,
+    "latest_missing": {
+      "open": 0,
+      "high": 0,
+      "low": 0,
+      "close": 0,
+      "amt": 0,
+      "cumadj": 0,
+      "num_trades": 4
+    }
+  },
+  "strategy": "均线趋势",
+  "assumptions": [
+    "收盘后形成目标权重，下一观测日开盘尝试成交；首日为空仓，末日信号不执行。",
+    "未成交及剩余订单当日失效；None 表示不下新单，空字典表示尝试清仓。",
+    "开盘即涨停不买、开盘即跌停不卖；日线不能重现排队成交和盘中路径。",
+    "成交规模上限采用上一观测日成交额，当前全天成交额仅用于排除零成交记录。",
+    "佣金为可配置的假定全佣，过户费另计；应按实际券商口径调整，避免重复收费。",
+    "成交额按 amount_multiplier 换算为元；原文件金额单位仍需老师确认。",
+    "缺失行情按最后有效价格估值并保留持仓，不自动卖出或把退市损失忽略为已实现盈利。",
+    "不含融资融券、日内交易、竞价排队和个人投资者适当性审查；不强制期末清仓。",
+    "复权研究模式：持仓按 P×cumadj 的权益份额计价，隐含复权再投资近似；不是实际股数、现金分红和税款账户。买卖申报按整数股及板块数量规则约束，折算不足一股的残余权益留在持仓。",
+    "状态覆盖为研究近似：缺失每日状态时按普通股及板块规则推算涨跌停。没有历史 ST 标记时无法保证 ST 排除；首次观测日不被当作真实上市日。",
+    "未指定外部基准；净值图中的 1.0 为初始资金基线，不是沪深300或全市场指数。",
+    "数据/模型事件 inferred_price_limits：678 次。"
+  ],
+  "created_at": "2026-10-16T20:11:36.829757+08:00",
+  "strategy_parameters": {},
+  "strategy_sha256": "336e1f14e135a6301e73e3b96488b34a65a91839e4a3e5876f5a8c6f77473fac",
+  "input_files": {
+    "close.feather": {
+      "bytes": 32431858,
+      "mtime_ns": 1792134402000000000,
+      "sha256": "621b7b381f96c7d162317ac67c8831aebfc5e78f4b1ecd59159fc93e0ea109e7"
+    },
+    "low.feather": {
+      "bytes": 32156250,
+      "mtime_ns": 1792134398000000000,
+      "sha256": "e5c7da4b6fcdae3cc50fe2f6d30faf36b83c68c25d6db5faba079716748fa8ea"
+    },
+    "num_trades.feather": {
+      "bytes": 37495202,
+      "mtime_ns": 1792086384000000000,
+      "sha256": "37a89a5b9af8a00deafc089be614f7784167ae283277337f31552c809f28a142"
+    },
+    "cumadj.feather": {
+      "bytes": 5877058,
+      "mtime_ns": 1792085594000000000,
+      "sha256": "5ebc13623115743c39b2cb56dbe365f10c4c72d6fed6ac4041d9377895439173"
+    },
+    "high.feather": {
+      "bytes": 32377890,
+      "mtime_ns": 1792134396000000000,
+      "sha256": "88313810bedab563416c94e90a60cc0cf089fd62923be1bcad0e2680558a5cf7"
+    },
+    "amt.feather": {
+      "bytes": 52398330,
+      "mtime_ns": 1792134412000000000,
+      "sha256": "cd2a2f43e273963f93230163813aafaddb52307d1805ee1a583aeab931e418c2"
+    },
+    "open.feather": {
+      "bytes": 32297546,
+      "mtime_ns": 1792134392000000000,
+      "sha256": "a75e7aa3dac9e101f2c3cfff85728b26a29ea50ccc6ec46c315a36e8476d5f92"
+    }
+  },
+  "python_version": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "package_versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "pyarrow": "26.0.0"
+  },
+  "engine_source_sha256": {
+    "__init__.py": "caa3bc00de6017fe866028ce17c8197c008fdba73434201221570c56ef5c032a",
+    "cli.py": "419cb08be1f06c1fe69a26560439772987ec4640396c66bf853123e7131614fe",
+    "config.py": "ca4882787109f1be8d1ddc86e3b446f6db9938e6316994d37e27c5dc1edd01d1",
+    "data.py": "1fbde63066e44e8116fef030e67be2ce7ca364b41bac918c73624e90bb814f36",
+    "engine.py": "c403f4b575ce705aed88943bbb7ae849e9d211f01c524326550744915bd8b9ec",
+    "report.py": "cca39d3074379b0beed643bcbfd01e27859fd9640c7b17d0ab7eba1c0d094868",
+    "rules.py": "b20a206000752cf96ad91a0da5a2ab5083a24a575ccd723de10d090ee54edc93",
+    "strategy.py": "23fdf022a83fd074c0c11066deab1f06d615cb75cf61b1fe1c2b1e91d948ba86"
+  }
+}
