@@ -46,6 +46,7 @@ class DataBundle:
             self._panels[field] = frame
         reference = self._panels["close"]
         self.dates = reference.index
+        self.date_index = {date: position for position, date in enumerate(self.dates)}
         self.symbols = list(reference.columns)
         self.symbol_index = {symbol: position for position, symbol in enumerate(self.symbols)}
         for symbol in self.symbols:
@@ -67,24 +68,53 @@ class DataBundle:
         valid = np.isfinite(self.arrays["close"]) & np.isfinite(self.arrays["cumadj"])
         self.history_counts = np.cumsum(valid, axis=0, dtype=np.int32)
         self.states = self._states(states)
+        self.status_arrays = {}
+        self.metadata_manifest = {}
         self.instruments = self._instruments(instruments)
         self.actions = self._actions(actions)
 
     @classmethod
-    def from_feathers(cls, source, symbols=None):
+    def from_feathers(cls, source, symbols=None, metadata_dir=None, end=None):
         source = Path(source).expanduser().resolve()
         columns = ["date"] + list(symbols) if symbols else None
         panels = {field: pd.read_feather(source / f"{field}.feather", columns=columns)
                   for field in REQUIRED_FIELDS}
         if (source / "num_trades.feather").exists():
             panels["num_trades"] = pd.read_feather(source / "num_trades.feather", columns=columns)
+        if end is not None:
+            panels = {field: frame.loc[pd.to_datetime(frame["date"]) <= pd.Timestamp(end)]
+                      for field, frame in panels.items()}
         optional = {}
         for name in ("states", "instruments", "actions"):
             filename = {"states": "market_state.csv", "instruments": "instruments.csv",
                         "actions": "corporate_actions.csv"}[name]
-            path = source / filename
+            path = Path(metadata_dir).expanduser() / filename if metadata_dir else source / filename
+            if not path.exists():
+                path = source / filename
             optional[name] = pd.read_csv(path) if path.exists() else None
-        return cls(panels, source=source, **optional)
+        result = cls(panels, source=source, **optional)
+        if metadata_dir:
+            result.add_metadata(metadata_dir)
+        return result
+
+    def add_metadata(self, directory):
+        import json
+        directory = Path(directory).expanduser()
+        for field in ("is_st", "suspended"):
+            path = directory / f"{field}.feather"
+            if path.exists():
+                frame = pd.read_feather(path).set_index("date")
+                frame.index = pd.DatetimeIndex(frame.index)
+                if frame.index.has_duplicates or frame.columns.has_duplicates:
+                    raise ValueError(f"{field} 状态日期或代码重复")
+                values = frame.reindex(index=self.dates, columns=self.symbols).astype(float).to_numpy()
+                if (~(np.isnan(values) | (values == 0) | (values == 1))).any():
+                    raise ValueError(f"{field} 只能包含布尔状态或缺失")
+                self.status_arrays[field] = values
+        path = directory / "manifest.json"
+        if path.exists():
+            self.metadata_manifest = json.loads(path.read_text(encoding="utf-8"))
+        return self
 
     def _states(self, frame):
         if frame is None or frame.empty:
@@ -155,7 +185,15 @@ class DataBundle:
         return float(self.arrays[field][position, self.symbol_index[symbol]])
 
     def state(self, date, symbol):
-        return self.states.get((pd.Timestamp(date), symbol), {})
+        date = pd.Timestamp(date)
+        result = dict(self.states.get((date, symbol), {}))
+        position = self.date_index.get(date, -1) if self.status_arrays else -1
+        if position >= 0 and symbol in self.symbol_index:
+            for field, values in self.status_arrays.items():
+                value = values[position, self.symbol_index[symbol]]
+                if np.isfinite(value):
+                    result[field] = bool(value)
+        return result
 
     def history(self, position, field, bars, symbols=None, adjusted=False):
         if field not in self._panels or not isinstance(bars, int) or bars < 1:
@@ -177,4 +215,10 @@ class DataBundle:
                   "action_records": len(self.actions), "instrument_records": len(self.instruments)}
         result["latest_missing"] = {field: int(np.isnan(values[-1]).sum())
                                     for field, values in self.arrays.items()}
+        valid = np.isfinite(self.arrays["close"])
+        result["status_coverage"] = {field: {"known_price_days": int((np.isfinite(values) & valid).sum()),
+                                             "missing_price_days": int((np.isnan(values) & valid).sum()),
+                                             "true_price_days": int(((values == 1) & valid).sum())}
+                                     for field, values in self.status_arrays.items()}
+        result["metadata_manifest"] = self.metadata_manifest
         return result

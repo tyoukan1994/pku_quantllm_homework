@@ -7,7 +7,7 @@ import numpy as np
 
 
 def performance_metrics(curve, trades, orders, config):
-    returns = curve.daily_return.iloc[1:]
+    returns = curve.daily_return if config.seed_previous_close else curve.daily_return.iloc[1:]
     periods = len(returns)
     total = float(curve.net_value.iloc[-1] - 1)
     annual_return = float((1 + total) ** (config.annual_days / periods) - 1)
@@ -67,7 +67,7 @@ def report_html(result):
              ("成交笔数", str(metrics["fills"])), ("费用合计", f'{metrics["total_fees"]:,.2f}')]
     card_html = "".join(f"<div class='card'><span>{label}</span><strong>{value}</strong></div>" for label, value in cards)
     notes = "".join(f"<li>{html.escape(note)}</li>" for note in result.assumptions)
-    final_date = result.positions.date.max() if not result.positions.empty else ""
+    final_date = str(result.equity.index[-1].date())
     final_positions = result.positions[result.positions.date == final_date]
     orders = result.orders[result.orders.status != "filled"].tail(50)
     mode = "复权研究模式（权益份额近似）" if result.config["accounting"] == "research" else "严格账户模式"

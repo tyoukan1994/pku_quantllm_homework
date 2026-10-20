@@ -224,6 +224,8 @@ class BacktestEngine:
             return reject("direction_disabled")
         if side == "buy" and self.config.exclude_st and state.get("is_st"):
             return reject("st_excluded")
+        if side == "buy" and self.config.require_st_history and state.get("is_st") is not False:
+            return reject("unknown_st_status")
         prices = {field: self.data.value(field, position, symbol)
                   for field in ("open", "high", "low", "close", "cumadj", "amt")}
         if not all(np.isfinite(value) for value in prices.values()):
@@ -308,6 +310,22 @@ class BacktestEngine:
                                    "total_fee": fees["total"], "cash_after": self.cash})
         return quantity
 
+    def _submit_order(self, position, symbol, side, desired, signal_date, budget=None):
+        if not self.config.split_orders:
+            return self._order(position, symbol, side, desired, signal_date, budget)
+        remaining = max(0, math.floor(desired + 1e-8))
+        total = 0
+        cash_before = self.cash
+        while remaining > 0:
+            child = min(remaining, max_order_quantity(symbol))
+            child_budget = max(0, budget - (cash_before - self.cash)) if budget is not None else None
+            filled = self._order(position, symbol, side, child, signal_date, child_budget)
+            total += filled
+            remaining -= filled
+            if filled < child:
+                break
+        return total
+
     def _rebalance(self, position, targets, signal_date):
         equity, values = self._mark(position, "open")
         if equity <= 0:
@@ -318,23 +336,23 @@ class BacktestEngine:
             price = self.data.value("open", position, symbol)
             scale = self._scale(position, symbol)
             if not np.isfinite(price) or not np.isfinite(scale):
-                self._order(position, symbol, "sell", 1, signal_date)
+                self._submit_order(position, symbol, "sell", 1, signal_date)
                 continue
             desired_value = equity * targets.get(symbol, 0)
             excess = self._units(symbol) * price * scale - desired_value
             if excess >= price - 1e-8:
-                self._order(position, symbol, "sell", excess / price, signal_date)
+                self._submit_order(position, symbol, "sell", excess / price, signal_date)
         for symbol, weight in sorted(targets.items(), key=lambda item: (-item[1], item[0])):
             price = self.data.value("open", position, symbol)
             scale = self._scale(position, symbol)
             if not np.isfinite(price) or not np.isfinite(scale):
-                self._order(position, symbol, "buy", 1, signal_date)
+                self._submit_order(position, symbol, "buy", 1, signal_date)
                 continue
             current_value = self._units(symbol) * price * scale
             budget = equity * weight - current_value
             if budget >= price - 1e-8:
                 slipped = slipped_price(price, "buy", self.config.slippage_bps)
-                self._order(position, symbol, "buy", budget / slipped, signal_date, budget)
+                self._submit_order(position, symbol, "buy", budget / slipped, signal_date, budget)
 
     def run(self, strategy, progress=None):
         if self.has_run:
@@ -344,8 +362,19 @@ class BacktestEngine:
         indices = np.flatnonzero((self.data.dates >= pd.Timestamp(config.start)) & (self.data.dates <= pd.Timestamp(config.end)))
         if len(indices) < 2:
             raise ValueError("回测区间至少需要两个有效观测日期")
+        if config.liquidate_on_end and config.liquidation_window >= len(indices):
+            raise ValueError("退出窗口必须短于回测区间，避免首日无法建仓")
         pending = None
         signal_date = None
+        if config.seed_previous_close:
+            previous = int(indices[0]) - 1
+            if previous < 0:
+                raise DataCoverageError("首日建仓需要开始日前一交易日行情，用于生成收盘信号")
+            context = Context(self.data, previous, config, self.cash, self.cash, {})
+            pending = validate_targets(strategy.on_close(context), self.data.symbols, config.max_weight)
+            signal_date = self.data.dates[previous]
+            self.event_records.append({"date": str(signal_date.date()), "symbol": "",
+                                       "event": "initial_signal_from_previous_close", "value": len(pending or {})})
         equity_records, position_records = [], []
         for sequence, position in enumerate(indices):
             date = self.data.dates[position]
@@ -353,7 +382,27 @@ class BacktestEngine:
             self.daily_buys.clear()
             self._corporate_actions(position)
             trade_start = len(self.trade_records)
-            if pending is not None:
+            exiting = config.liquidate_on_end and sequence >= len(indices) - config.liquidation_window
+            if exiting:
+                self._rebalance(position, {}, self.data.dates[position - 1] if position else date)
+                if sequence == len(indices) - 1 and config.accounting == "research" and config.write_off_research_dust:
+                    for symbol in list(self.lots):
+                        scale = self._scale(position, symbol)
+                        if not np.isfinite(scale):
+                            scale = self.last_factors.get(symbol, math.nan)
+                        shares = self._units(symbol) * scale
+                        if 0 < shares < 1 - 1e-8:
+                            price = self.data.value("close", position, symbol)
+                            value = shares * price if np.isfinite(price) else self._units(symbol) * self.last_marks.get(symbol, math.nan)
+                            if np.isfinite(value):
+                                self.event_records.append({"date": str(date.date()), "symbol": symbol,
+                                                           "event": "research_fractional_dust_writeoff", "value": -value,
+                                                           "shares_before": shares, "shares_after": 0})
+                                self.lots[symbol] = []
+                self.event_records.append({"date": str(date.date()), "symbol": "",
+                                           "event": "scheduled_terminal_liquidation" if sequence == len(indices) - 1 else "scheduled_exit_window",
+                                           "value": sum(self._units(symbol) > 1e-10 for symbol in self.lots)})
+            elif pending is not None:
                 self._rebalance(position, pending, signal_date)
             equity, values = self._mark(position, "close", end_of_day=True)
             if not np.isfinite(equity) or equity <= 0:
@@ -387,6 +436,7 @@ class BacktestEngine:
         curve = pd.DataFrame(equity_records).set_index("date")
         curve["net_value"] = curve.equity / config.initial_cash
         curve["daily_return"] = curve.equity.pct_change(fill_method=None).fillna(0.0)
+        curve.loc[curve.index[0], "daily_return"] = curve.net_value.iloc[0] - 1
         curve["drawdown"] = curve.net_value / curve.net_value.cummax().clip(lower=1.0) - 1
         if config.benchmark:
             if config.benchmark not in self.data.symbol_index:
@@ -401,9 +451,15 @@ class BacktestEngine:
         positions = pd.DataFrame(position_records, columns=POSITION_COLUMNS)
         assumptions = self._assumptions()
         from .report import performance_metrics
+        metrics = performance_metrics(curve, trades, orders, config)
+        metrics["terminal_position_count"] = sum(self._units(symbol) > 1e-10 for symbol in self.lots)
+        metrics["terminal_market_value"] = float(curve.market_value.iloc[-1])
+        metrics["liquidation_complete"] = metrics["terminal_position_count"] == 0 and self._cash_claims() == 0
+        metrics["research_dust_writeoff"] = -sum(event.get("value", 0) for event in self.event_records
+                                                if event["event"] == "research_fractional_dust_writeoff")
         return BacktestResult(curve, trades, orders, positions, pd.DataFrame(self.event_records, columns=EVENT_COLUMNS),
                               config.to_dict(), self.data.summary(), assumptions,
-                              getattr(strategy, "name", type(strategy).__name__), performance_metrics(curve, trades, orders, config))
+                              getattr(strategy, "name", type(strategy).__name__), metrics)
 
     def _assumptions(self):
         notes = ["收盘后形成目标权重，下一观测日开盘尝试成交；首日为空仓，末日信号不执行。",
@@ -424,6 +480,20 @@ class BacktestEngine:
             notes.append("严格交易状态模式：每次成交检查需要逐日 ST、停牌、是否无涨跌幅及精确涨跌停价；覆盖不足立即停止。")
         if not self.config.benchmark:
             notes.append("未指定外部基准；净值图中的 1.0 为初始资金基线，不是沪深300或全市场指数。")
+        if self.config.seed_previous_close:
+            notes[0] = "使用开始日前一交易日收盘信号，在考核首日开盘尝试建仓；首日损益和费用计入收益。"
+        if self.config.liquidate_on_end:
+            notes[7] = "末日开盘执行预先安排的清仓，不再开新仓；仍检查 T+1、跌停、停牌和成交规模。无法卖出的持仓保留并报告清仓未完成，不假造成交。"
+            if self.config.liquidation_window > 1:
+                notes[7] = f"结束前 {self.config.liquidation_window} 个交易观测日进入只卖不买退出期，每日开盘重试清仓。所有 T+1、跌停、停牌及容量约束仍生效，受阻持仓保留并报告。"
+        if self.config.require_st_history:
+            notes.append("非 ST 硬约束：选股时和买入时均须有当日明确的非 ST 状态；未知状态不买，已持仓变 ST 允许卖出。")
+        if self.config.stamp_tax_rate is not None or self.config.transfer_fee_rate is not None:
+            notes.append(f"费用覆盖：印花税单边卖出 {self.config.stamp_tax_rate if self.config.stamp_tax_rate is not None else '按历史'}；过户费 {self.config.transfer_fee_rate if self.config.transfer_fee_rate is not None else '按历史'}。")
+        if self.config.split_orders:
+            notes.append("大额调仓按板块单笔数量上限拆成子订单；子订单共享当日流动性额度，逐笔计费，不假设无限容量。")
+        if self.config.write_off_research_dust:
+            notes.append("仅研究模式：末日不足一股的复权模型残余权益按零值核销、计入损失，不产生卖出成交或现金收入；完整股份受阻仍保留，不以核销伪装清仓。")
         for reason, count in sorted(self.warnings.items()):
             notes.append(f"数据/模型事件 {reason}：{count} 次。")
         stale = {symbol: count for symbol, count in self.stale_days.items() if count >= self.config.stale_warning_days and self._units(symbol) > 1e-10}

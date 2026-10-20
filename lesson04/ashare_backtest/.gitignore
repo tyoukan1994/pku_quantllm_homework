@@ -1,8 +1,15 @@
 .venv/
 __pycache__/
-*.pyc
-runs/
+*.py[cod]
 .DS_Store
+runs/
+workspace/
 data/
+market_metadata/
 *.feather
+*.parquet
 .env
+.env.*
+!.env.example
+credentials*
+secrets*

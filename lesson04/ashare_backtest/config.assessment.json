@@ -1,0 +1,22 @@
+{
+  "start": "2025-01-01",
+  "end": "2026-09-30",
+  "initial_cash": 1000000000,
+  "commission_rate": 0.0001,
+  "minimum_commission": 0,
+  "stamp_tax_rate": 0.0005,
+  "transfer_fee_rate": 0,
+  "slippage_bps": 0,
+  "participation_rate": 0.01,
+  "min_history": 60,
+  "max_weight": 0.02,
+  "exclude_st": true,
+  "require_st_history": true,
+  "seed_previous_close": true,
+  "liquidate_on_end": true,
+  "liquidation_window": 20,
+  "split_orders": true,
+  "write_off_research_dust": true,
+  "accounting": "research",
+  "strict_rules": false
+}

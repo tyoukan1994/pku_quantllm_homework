@@ -11,4 +11,5 @@ else
     read "?按回车退出"
     exit 1
 fi
-exec "$task_python" -m streamlit run "$task_root/app.py" --server.address 127.0.0.1 --server.port 8501 --browser.gatherUsageStats false
+open "http://127.0.0.1:8501"
+exec "$task_python" -m streamlit run "$task_root/app.py" --server.address 127.0.0.1 --server.port 8501 --server.headless true --browser.gatherUsageStats false

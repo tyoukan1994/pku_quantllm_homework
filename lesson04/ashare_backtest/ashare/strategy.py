@@ -53,6 +53,8 @@ class Context:
                 continue
             if self.__config.exclude_st and state.get("is_st"):
                 continue
+            if self.__config.require_st_history and state.get("is_st") is not False:
+                continue
             result.append(symbol)
         return result
 

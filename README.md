@@ -2,13 +2,15 @@
 
 本仓库汇集第二讲、第三节实践课和第四讲回测作业。课程讨论区是 [aslan9/pku_quantllm](https://github.com/aslan9/pku_quantllm)，不是本项目的代码仓库。
 
-## 第四讲：沪深 A 股日频回测系统
+## 第四讲：A股策略平台与量价策略研究
 
-[源码与运行说明](lesson04/ashare_backtest/README.md) · [自定义策略模板](lesson04/ashare_backtest/strategies/custom_template.py) · [测试与验收](lesson04/ashare_backtest/验收说明.md)
+[完整报告](lesson04/ashare_backtest/报告/第四讲回测报告.md) · [PDF报告](lesson04/ashare_backtest/报告/第四讲回测报告.pdf) · [平台源码与运行说明](lesson04/ashare_backtest/README.md) · [测试与验收](lesson04/ashare_backtest/验收说明-20261021.md)
 
-基于课程提供的七个 Feather 日频矩阵，提供可编辑 Python 策略的 Streamlit 工作台和模块化回测引擎。实现收盘信号次日开盘执行、T+1、板块申报数量、历史涨跌停与费用规则、资金和上日成交额参与约束，以及净值、回撤、持仓、成交和拒单导出。包含动量、均线、等权示例，33 项测试通过，并完成真实课程数据集成运行。
+可编写、保存、回测和比较用户策略的通用日频平台，包含参数搜索和独立候选验证；考虑T+1、涨跌停、申报数量、资金与上日成交额容量。当前版本85项测试通过，完成36个技术/文献候选及58次账户运行，公开保留全部候选汇总和审计摘要。
 
-当前默认采用复权权益份额研究近似；严格账户和逐日状态检查需补充公司行为、ST/停复牌及精确涨跌停数据，缺少必要数据时停止。示例用于验证系统流程，不构成策略样本外有效性结论。原始行情从[课程 Release](https://github.com/aslan9/pku_quantllm/releases/tag/data-backtest-20261016)下载，不重复上传。
+2025-01-02至2026-09-30，10亿元、佣金单边万一、卖出印花税万五、上日成交额1%容量、提前20日退出及0bp滑点：RSI14累计20.27%、年化11.60%、最大回撤14.33%，期末模拟清仓；低波动量组合5.34%为暂估收益，残留498.85万元海通证券陈旧资产，未满足完全离场。报告完整披露复权权益近似、换股缺失、多重尝试、执行压力测试和非全新盲测边界，不作为稳定收益承诺。
+
+仅上传源码、报告与汇总，原始行情从[课程 Release](https://github.com/aslan9/pku_quantllm/releases/tag/data-backtest-20261016)获取；授权状态宽表、本机凭据及完整运行目录不公开。初版示例保留为历史记录，本次结论以完整报告为准。
 
 ## 第三节实践课：Level-2 回放与日内因子研究
 
@@ -89,4 +91,5 @@ PYTHONPATH=factor .venv/bin/python factor/run_alpha_ml.py
 ```bash
 .venv/bin/python factor/run_alpha_ml_holdout_2025.py
 ```
+
 

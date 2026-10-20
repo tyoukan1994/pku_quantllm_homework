@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ashare-daily-lab"
-version = "0.1.0"
+version = "0.3.0"
 description = "Local daily A-share strategy research and backtesting"
 requires-python = ">=3.10"
 dependencies = ["numpy>=2.0,<3", "pandas>=2.2,<3", "pyarrow>=18,<27"]
 
 [project.optional-dependencies]
 ui = ["streamlit>=1.50,<2"]
+market = ["rqdatac>=3.0,<4"]
 
 [project.scripts]
 ashare-backtest = "ashare.cli:main"

@@ -57,6 +57,10 @@ def trading_fees(date, side, gross, config):
     commission = tick_round(max(config.minimum_commission, gross * config.commission_rate))
     stamp_rate = 0.0005 if date >= pd.Timestamp("2023-08-28") else 0.001
     transfer_rate = 0.00001 if date >= pd.Timestamp("2022-04-29") else 0.00002
+    if config.stamp_tax_rate is not None:
+        stamp_rate = config.stamp_tax_rate
+    if config.transfer_fee_rate is not None:
+        transfer_rate = config.transfer_fee_rate
     stamp = tick_round(gross * stamp_rate) if side == "sell" else 0.0
     transfer = tick_round(gross * transfer_rate)
     return {"commission": commission, "stamp_tax": stamp, "transfer_fee": transfer,

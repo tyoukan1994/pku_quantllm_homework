@@ -25,24 +25,30 @@ def file_hash(path):
     return digest.hexdigest()
 
 
-def run_backtest(source, strategy_path, parameters, config, destination, symbols=None, progress=None):
+def run_backtest(source, strategy_path, parameters, config, destination, symbols=None, progress=None, metadata_dir=None):
     input_files = {path.name: {"bytes": path.stat().st_size, "mtime_ns": path.stat().st_mtime_ns,
                               "sha256": file_hash(path)}
                    for path in Path(source).expanduser().glob("*")
                    if path.suffix in {".feather", ".csv"}}
-    data = DataBundle.from_feathers(source, symbols)
+    metadata_files = {path.name: {"bytes": path.stat().st_size, "mtime_ns": path.stat().st_mtime_ns,
+                                  "sha256": file_hash(path)}
+                      for path in Path(metadata_dir).expanduser().glob("*")
+                      if path.suffix in {".feather", ".csv", ".json"}} if metadata_dir else {}
+    data = DataBundle.from_feathers(source, symbols, metadata_dir, end=config.end)
     strategy = load_strategy(strategy_path, parameters)
     result = BacktestEngine(data, config).run(strategy, progress)
-    for filename, fingerprint in input_files.items():
-        path = Path(source).expanduser() / filename
-        if path.stat().st_size != fingerprint["bytes"] or path.stat().st_mtime_ns != fingerprint["mtime_ns"]:
-            raise RuntimeError(f"回测期间输入文件发生变化，请重新运行：{filename}")
+    for directory, fingerprints in ((source, input_files), (metadata_dir, metadata_files)):
+        for filename, fingerprint in fingerprints.items():
+            path = Path(directory).expanduser() / filename
+            if path.stat().st_size != fingerprint["bytes"] or path.stat().st_mtime_ns != fingerprint["mtime_ns"]:
+                raise RuntimeError(f"回测期间输入文件发生变化，请重新运行：{filename}")
     export_result(result, destination, Path(strategy_path).read_text(encoding="utf-8"))
     summary_path = Path(destination) / "summary.json"
     payload = json.loads(summary_path.read_text(encoding="utf-8"))
     payload["strategy_parameters"] = parameters
     payload["strategy_sha256"] = hashlib.sha256(Path(strategy_path).read_bytes()).hexdigest()
     payload["input_files"] = input_files
+    payload["metadata_files"] = metadata_files
     payload["python_version"] = sys.version
     import numpy
     import pandas
@@ -63,11 +69,12 @@ def main():
     parser.add_argument("--end")
     parser.add_argument("--symbols", help="逗号分隔的股票代码；不填则加载全部")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--metadata", type=Path, help="本机私有历史 ST、停牌和上市日期目录")
     parser.add_argument("--inspect", action="store_true")
     arguments = parser.parse_args()
     symbols = [symbol.strip() for symbol in arguments.symbols.split(",") if symbol.strip()] if arguments.symbols else None
     if arguments.inspect:
-        print(json.dumps(DataBundle.from_feathers(arguments.data, symbols).summary(), ensure_ascii=False, indent=2))
+        print(json.dumps(DataBundle.from_feathers(arguments.data, symbols, arguments.metadata).summary(), ensure_ascii=False, indent=2))
         return
     settings = json.loads(arguments.config.read_text(encoding="utf-8")) if arguments.config else {}
     for field in ("start", "end"):
@@ -77,7 +84,7 @@ def main():
     if not isinstance(parameters, dict):
         raise ValueError("--params 必须为 JSON 对象")
     destination = arguments.output or ROOT / "runs" / datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-    result = run_backtest(arguments.data, arguments.strategy, parameters, BacktestConfig(**settings), destination, symbols)
+    result = run_backtest(arguments.data, arguments.strategy, parameters, BacktestConfig(**settings), destination, symbols, metadata_dir=arguments.metadata)
     print(json.dumps(result.metrics, ensure_ascii=False, indent=2, allow_nan=False))
     print(f"报告：{destination.resolve() / 'report.html'}")
 
