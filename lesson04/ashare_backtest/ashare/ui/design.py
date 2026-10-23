@@ -57,7 +57,7 @@ textarea{font-family:ui-monospace,SFMono-Regular,monospace!important;font-size:1
 .st-key-result_empty_panel,.st-key-result_live_panel{border:1px solid #e1e7f0;border-radius:11px;padding:18px 20px;background:#fff}
 .st-key-result_empty_panel [data-testid="stTabs"]{margin-top:4px}
 .strategy-meta{font-size:11px;color:#8b9bb0;display:flex;justify-content:space-between;border-top:1px solid #edf1f7;padding-top:13px;margin-top:6px}
-.st-key-strategy_editor,.st-key-research_form,.st-key-research_history,.st-key-data_form,.st-key-rule_table{border:1px solid #e1e7f0;border-radius:11px;padding:20px;background:#fff}
+.st-key-strategy_editor,.st-key-research_form,.st-key-research_history,.st-key-data_form,.st-key-rule_table,.st-key-factor_evaluation_form{border:1px solid #e1e7f0;border-radius:11px;padding:20px;background:#fff}
 .st-key-strategy_editor textarea{background:#18283e!important;color:#d9e4f4!important;border:1px solid #233a56!important;border-radius:8px!important;padding:18px!important;line-height:1.9!important}
 [data-testid="stDataFrame"]{border:1px solid #e4eaf2;border-radius:8px;overflow:hidden}
 @media(max-width:1000px){.block-container{padding:3rem 1rem 1.5rem}.st-key-config_panel{padding:14px}}
